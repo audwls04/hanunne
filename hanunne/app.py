@@ -43,6 +43,19 @@ def data_js():
             "const WORDS=" + json.dumps(s.words, ensure_ascii=False) + ";\n")
     return Response(body, mimetype="application/javascript", headers={"Cache-Control": "no-cache"})
 
+@app.get("/api/")
+def api_index():
+    return jsonify(
+        service="한눈에 백엔드 API",
+        endpoints={
+            "GET /api/status": "서버 상태 (AI 사용 가능 여부, 데이터 개수, 시트 동기화)",
+            "GET /api/data.js": "혜택·단어 데이터",
+            "POST /api/recommend": "맞춤 혜택 추천",
+            "POST /api/translate": "쉬운 말 번역 (글 또는 사진)",
+            "POST /api/explain": "혜택 하나를 쉬운 말로 풀이",
+        },
+    )
+
 
 @app.get("/api/status")
 def status():
